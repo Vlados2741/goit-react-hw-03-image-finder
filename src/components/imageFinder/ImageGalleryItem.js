@@ -23,7 +23,7 @@ export const ImageGalleryItem = ({
 );
 };
 
-ImageGallaryItem.propTypes = {
+ImageGalleryItem.propTypes = {
   onClick: PropTypes.func,
   url: PropTypes.string,
   largeImageURL: PropTypes.string,
