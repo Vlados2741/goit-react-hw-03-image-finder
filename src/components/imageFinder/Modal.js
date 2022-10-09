@@ -16,15 +16,15 @@ export class Modal extends React.Component {
   closeModal = event => {
         if (event.code === 'Escape' || event.target === event.currentTarget) {
         this.props.onClick();
-        }
+      };
     };
     
     render() {
         const { largeImageURL, imgTitle } = this.props.content;
         return (
             <div className="modal" onClick={this.props.onClick}>
-                <img src={largeImageURL} alt={imgTitle} className="img"/>
+                <img src={largeImageURL} alt={imgTitle} className="img" />
             </div>
-        )
+        );
         };
 };
