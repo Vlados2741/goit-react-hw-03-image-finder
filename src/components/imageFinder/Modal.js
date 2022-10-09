@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 export class Modal extends React.Component {
     state = {
@@ -13,7 +14,7 @@ export class Modal extends React.Component {
         document.removeEventListener('keydown', this.closeModal);
     };
 
-  closeModal = event => {
+    closeModal = event => {
         if (event.code === 'Escape' || event.target === event.currentTarget) {
         this.props.onClick();
       };
@@ -26,5 +27,13 @@ export class Modal extends React.Component {
                 <img src={largeImageURL} alt={imgTitle} className="img" />
             </div>
         );
-        };
+    };
+};
+
+Modal.propTypes = {
+  content: PropTypes.shape({
+    largeImageURL: PropTypes.string,
+    imgTitle: PropTypes.string
+  }).isRequired,
+    onClick: PropTypes.func.isRequired,
 };

@@ -6,7 +6,8 @@ export const Button = ({ onClick }) => {
             <button
                 onClick={onClick}
                 type="button"
-                className="loadmoreButton">
+                className="loadmoreButton"
+            >
                 Load more
             </button>
         </div>

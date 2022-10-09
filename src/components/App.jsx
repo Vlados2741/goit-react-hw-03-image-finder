@@ -5,13 +5,13 @@ import "./imageFinder/imageFinder-style.css"
 export class App extends React.Component {
   state = {
     inputValue: '',
-    images:''
   };
   onFormSubmit = inputValue => {
     this.setState({inputValue })
   };
  
   render() {
+    const { inputValue } = this.state;
     return(
       <div>
         <Searchbar
@@ -19,7 +19,7 @@ export class App extends React.Component {
         />
 
         <ImageGallery
-          inputValue={this.state.inputValue}
+          inputValue={inputValue}
         />
       </div>
     );
