@@ -1,26 +1,16 @@
 import PropTypes from 'prop-types';
 
-export const ImageGalleryItem = ({
-    url,
-    title,
-    largeImageURL,
-    onClick
-}) => {
-    return (
-        <li 
-            className="photo-card"
-            onClick={() => {
-                onClick({largeImageURL});
-            }}
-        >
-            <img
-                src={url}
-                alt={title}
-                width="220px"
-                height="150px"
-            />
-        </li>
-);
+export const ImageGalleryItem = ({ url, title, largeImageURL, onClick }) => {
+  return (
+    <li
+      className="photo-card"
+      onClick={() => {
+        onClick({ largeImageURL });
+      }}
+    >
+      <img src={url} alt={title} width="220px" height="150px" />
+    </li>
+  );
 };
 
 ImageGalleryItem.propTypes = {
