@@ -12,9 +12,7 @@ export class ImageGallery extends React.Component {
     loading: false,
     error: null,
     showModal: false,
-    contentModal: {
-      urlLarge: '',
-    },
+    urlLarge: '',
     page: 1,
   };
 
@@ -27,7 +25,7 @@ export class ImageGallery extends React.Component {
       this.setState({
         loading: true,
         images: '',
-        contentModal: '',
+        urlLarge: '',
         page: 1,
       });
 
@@ -67,19 +65,17 @@ export class ImageGallery extends React.Component {
     }
   }
 
-  openModal = contentModal => {
+  openModal = content => {
     this.setState({
       showModal: true,
-      contentModal,
+      urlLarge: content,
     });
   };
 
   closeModal = () => {
     this.setState({
       showModal: false,
-      contentModal: {
-        urlLarge: '',
-      },
+      urlLarge: '',
     });
   };
 
@@ -90,34 +86,29 @@ export class ImageGallery extends React.Component {
   };
 
   render() {
-    const { images, loading, showModal, contentModal } = this.state;
+    const { images, loading, showModal, urlLarge } = this.state;
     const value = this.props.inputValue;
     return (
       <div>
-        {value === '' && <h2>Please, enter your request</h2>}
-        {showModal && (
-          <Modal content={contentModal} onClick={this.closeModal} />
-        )}
+        {!value && <h2>Please, enter your request</h2>}
+        {showModal && <Modal content={urlLarge} onClick={this.closeModal} />}
         {images && (
           <div>
             <ul className="gallery">
-              {this.state.images.map(
-                ({ id, webformatURL, largeImageURL, tags }) => (
-                  <ImageGalleryItem
-                    key={id}
-                    url={webformatURL}
-                    largeImageURL={largeImageURL}
-                    title={tags}
-                    onClick={this.openModal}
-                  />
-                )
-              )}
-              ;
+              {images.map(({ id, webformatURL, largeImageURL, tags }) => (
+                <ImageGalleryItem
+                  key={id}
+                  url={webformatURL}
+                  largeImageURL={largeImageURL}
+                  title={tags}
+                  onClick={this.openModal}
+                />
+              ))}
             </ul>
           </div>
         )}
         {loading && <Loader />}
-        {images.length !== 0 && <Button onClick={this.loadMore} />};
+        {images.length !== 0 && <Button onClick={this.loadMore} />}
       </div>
     );
   }

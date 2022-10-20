@@ -21,10 +21,10 @@ export class Modal extends React.Component {
   };
 
   render() {
-    const { largeImageURL, imgTitle } = this.props.content;
+    const { largeImageURL } = this.props.content;
     return (
       <div className="modal" onClick={this.props.onClick}>
-        <img src={largeImageURL} alt={imgTitle} className="img" />
+        <img src={largeImageURL} alt="modal" className="img" />
       </div>
     );
   }
@@ -33,7 +33,6 @@ export class Modal extends React.Component {
 Modal.propTypes = {
   content: PropTypes.shape({
     largeImageURL: PropTypes.string,
-    imgTitle: PropTypes.string,
   }).isRequired,
   onClick: PropTypes.func.isRequired,
 };
