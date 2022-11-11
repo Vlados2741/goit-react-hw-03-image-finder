@@ -5,6 +5,7 @@ import { Loader } from './Loader';
 import { ImageGalleryItem } from './ImageGalleryItem';
 import { Modal } from './Modal';
 import { Button } from './Button';
+import { api } from 'services/api';
 
 export class ImageGallery extends React.Component {
   state = {
@@ -18,8 +19,7 @@ export class ImageGallery extends React.Component {
 
   async componentDidUpdate(prevProps, prevState) {
     const { page } = this.state;
-    const KEY = '29230090-341e91ba352ddd311dc4a279b';
-    const value = this.props.inputValue;
+    const { inputValue } = this.props;
 
     if (prevProps.inputValue !== this.props.inputValue) {
       this.setState({
@@ -29,7 +29,7 @@ export class ImageGallery extends React.Component {
         page: 1,
       });
 
-      this.fetchImages(KEY, value, page);
+      this.fetchImages(inputValue, page);
     }
 
     if (
@@ -40,23 +40,21 @@ export class ImageGallery extends React.Component {
         loading: true,
       });
 
-      this.fetchImages(KEY, value, page);
+      this.fetchImages(inputValue, page);
     }
   }
 
-  async fetchImages(KEY, value, page) {
+  async fetchImages(inputValue, page) {
     try {
-      const response = await axios.get(
-        `https://pixabay.com/api/?key=${KEY}&q=${value}&page=${page}&image_type=photo&per_page=12`
-      );
+      const response = await api(inputValue, page);
 
-      if (response.data.total === 0) {
+      if (response.total === 0) {
         alert('No results');
         this.setState({ loading: false });
       }
 
       this.setState(prevState => ({
-        images: [...prevState.images, ...response.data.hits],
+        images: [...prevState.images, ...response.hits],
       }));
     } catch (error) {
       this.setState({ error });
@@ -87,10 +85,10 @@ export class ImageGallery extends React.Component {
 
   render() {
     const { images, loading, showModal, urlLarge } = this.state;
-    const value = this.props.inputValue;
+    const { inputValue } = this.props;
     return (
       <div>
-        {!value && <h2>Please, enter your request</h2>}
+        {!inputValue && <h2>Please, enter your request</h2>}
         {showModal && <Modal content={urlLarge} onClick={this.closeModal} />}
         {images && (
           <div>
